@@ -1,4 +1,5 @@
-﻿using EntityFramework04.Models;
+﻿using EntityFramework04.Configurations;
+using EntityFramework04.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -23,9 +24,16 @@ namespace EntityFramework04
                 "Server=.\\SQLEXPRESS;Database=NationalBankManagement;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.ApplyConfigurationsFromAssembly(typeof(NationalBankContext).Assembly);
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new BranchConfiguration());
+            modelBuilder.ApplyConfiguration(new ManagerConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new AccountConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerAccountConfiguration());
+            modelBuilder.ApplyConfiguration(new BankTransactionConfiguration());
+        }
     }
 }
